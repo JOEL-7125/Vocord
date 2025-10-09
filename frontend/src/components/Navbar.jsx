@@ -13,7 +13,7 @@ export const NavBar = () => {
       />
       <div className="flex justify-between items-center h-full px-10 relative z-10">
         <h1 className="bg-gradient-to-br from-[#030f0f] to-[#00df82] bg-clip-text text-transparent text-5xl font-bold">
-          Vocal Diary
+          Vocord
         </h1>
 
         {/* Avatar + Logout */}

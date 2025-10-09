@@ -24,9 +24,7 @@ export const Home = () => {
           />
 
           <h1 className="text-6xl sm:text-[8rem] md:text-[10rem]/none font-semibold bg-gradient-to-br from-[#030f0f] to-[#00df82] bg-clip-text text-transparent text-center leading-tight stroke-text">
-            Vocal
-            <br />
-            <span className="pl-0 sm:pl-24">Diary</span>
+            Vocord
           </h1>
 
           <h2 className="text-xl sm:text-2xl md:text-3xl mt-4 text-white font-semibold text-center px-4">

@@ -45,7 +45,7 @@ export const FAQ = () => {
         />
         <FAQItem
           question="Is it free?"
-          answer="Yes, Vocal Diary is free to use."
+          answer="Yes, Vocord is free to use."
         />
       </div>
     </section>
