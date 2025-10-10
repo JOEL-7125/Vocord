@@ -10,7 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "motion": "^12.18.1",
+    "firebase": "^12.4.0",
+    "motion": "^12.23.23",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-router-dom": "^7.6.2",

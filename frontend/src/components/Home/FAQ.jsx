@@ -1,32 +1,39 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const FAQItem = ({ question, answer }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div
+    <motion.div
+      layout
       onClick={() => setIsOpen(!isOpen)}
-      className="bg-white/40 backdrop-blur-md rounded-xl px-5 py-4 cursor-pointer transition-all duration-300 ease-in-out shadow-md"
+      className="bg-white/40 backdrop-blur-md rounded-xl px-5 py-4 cursor-pointer shadow-md"
     >
-      <div className="flex justify-between items-center">
+      <motion.div layout className="flex justify-between items-center">
         <h3 className="text-xl font-semibold">{question}</h3>
-        <span
-          className={`text-2xl transform transition-transform duration-300 ${
-            isOpen ? 'rotate-45' : ''
-          }`}
+        <motion.span
+          className="text-2xl"
+          animate={{ rotate: isOpen ? 45 : 0 }}
+          transition={{ duration: 0.3 }}
         >
           +
-        </span>
-      </div>
-
-      <div
-        className={`overflow-hidden transition-all duration-300 ease-in-out text-black/80 text-base ${
-          isOpen ? 'max-h-40 mt-2 opacity-100' : 'max-h-0 opacity-0'
-        }`}
-      >
-        <p>{answer}</p>
-      </div>
-    </div>
+        </motion.span>
+      </motion.div>
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3, ease: 'easeInOut' }}
+            className="overflow-hidden text-black/80 text-base"
+          >
+            <p className="pt-2">{answer}</p>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
   );
 };
 

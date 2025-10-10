@@ -3,8 +3,12 @@ import "remixicon/fonts/remixicon.css";
 import { NavBar } from "../components/Navbar";
 import SideBar from "../components/SideBar";
 import { useVoiceRecorder } from "../hooks/useVoiceRecorder";
+import { auth } from "../firebase/firebase";
+import { signOut } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 export const Main = () => {
+  const navigate = useNavigate();
   const {
     isRecording,
     recordingsByDate,
@@ -18,6 +22,15 @@ export const Main = () => {
   } = useVoiceRecorder();
 
   const [expandedDate, setExpandedDate] = useState(null);
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      navigate("/login");
+    } catch (error) {
+      console.error("Logout Failed:", error);
+    }
+  };
 
   const toggleExpand = (date) => {
     setExpandedDate(expandedDate === date ? null : date);
@@ -113,10 +126,8 @@ export const Main = () => {
             ))}
           </div>
 
-          <div className="flex items-center justify-between mt-5 bg-[#2a2a2a] p-4 rounded-full border-2">
-            <button className="text-white">
-              <i className="ri-keyboard-box-line text-2xl pl-3"></i>
-            </button>
+          <div className="flex items-center justify-center mt-5 bg-[#2a2a2a] p-4 rounded-full border-2">
+            
 
             <button
               className="flex items-center gap-4"
@@ -132,10 +143,6 @@ export const Main = () => {
                   Recording...
                 </span>
               )}
-            </button>
-
-            <button className="text-white">
-              <i className="ri-emoji-sticker-line text-2xl pr-3"></i>
             </button>
           </div>
         </div>

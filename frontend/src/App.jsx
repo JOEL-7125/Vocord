@@ -1,24 +1,27 @@
-import React, { useState } from 'react'
-import { Home } from './pages/Home'
-import { Routes, Route } from 'react-router-dom'
-import { Login } from './pages/Login'
-import { Main } from './pages/Main'
-import Contact from './pages/contact'
+import React, { useState, useEffect } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from './firebase/firebase';
+import { Home } from './pages/Home';
+import { Login } from './pages/Login';
+import { Main } from './pages/Main';
+import Contact from './pages/contact';
 
 const App = () => {
   const [isLogin, setIsLogin] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-  const handleLogin = (username, password) => {
-    // Dummy login logic
-    if (username === 'admin' && password === '1234') {
-      setIsLogin(true);
-      return true;
-    }
-    return false;
-  }
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setIsLogin(!!user);
+      setLoading(false);
+    });
 
-  const handleLogout = () => {
-    setIsLogin(false);
+    return () => unsubscribe();
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>; // Or a spinner component
   }
 
   return (
@@ -27,17 +30,16 @@ const App = () => {
         <Route path='/' element={<Home />} />
         <Route 
           path='/login' 
-          element={<Login handleLogin={handleLogin} />} 
+          element={!isLogin ? <Login /> : <Navigate to="/main" />} 
         />
         <Route 
           path='/main' 
-          element={isLogin ? <Main handleLogout={handleLogout} /> : <Login handleLogin={handleLogin} />} 
+          element={isLogin ? <Main /> : <Navigate to="/login" />} 
         />
         <Route path='/contact' element={<Contact />} />
-
       </Routes>
     </div>
-  )
-}
+  );
+};
 
 export default App

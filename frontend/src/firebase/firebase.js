@@ -3,14 +3,17 @@ import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAbzZESxwGsoP9SwgS9r5OMu5dSRJ8IlRk",
-  authDomain: "vocord-login-auth.firebaseapp.com",
-  projectId: "vocord-login-auth",
-  storageBucket: "vocord-login-auth.firebasestorage.app",
-  messagingSenderId: "177685755017",
-  appId: "1:177685755017:web:d9594aa74829b77f980258"
+  apiKey: import.meta.env.VITE_API_KEY,
+  authDomain: import.meta.env.VITE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_APP_ID
 };
 
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const provider = new GoogleAuthProvider();
+provider.setCustomParameters({
+  prompt: "select_account"
+});

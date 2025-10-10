@@ -1,8 +1,8 @@
 import React from "react";
 import bg from "../assets/bg.png";
 import { useNavigate } from "react-router-dom";
-import { LazyMotion, domAnimation, motion } from "motion/react";
-import Hero from "../components/Home/Hero";
+import { motion } from "motion/react";
+import About from "../components/Home/About";
 import { FAQ } from "../components/Home/FAQ";
 
 export const Home = () => {
@@ -10,11 +10,7 @@ export const Home = () => {
 
   return (
     <div>
-      <LazyMotion features={domAnimation}>
         <motion.div
-          initial={{ opacity: 0, y: 0 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
           className="h-screen flex flex-col items-center justify-center relative px-4"
         >
           <img
@@ -55,9 +51,8 @@ export const Home = () => {
             </svg>
           </div>
         </motion.div>
-      </LazyMotion>
 
-      <Hero />
+      <About />
 
       <FAQ/>
 
